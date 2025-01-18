@@ -107,7 +107,9 @@ export default function ClienteViwe() {
               Telefone: <span>{c.telefone}</span>
             </p>
           </div>
-          <button onClick={() => excluir(c.id)}>Excluir</button>
+          <div className="buton_delte">
+          <button className="delete" onClick={() => excluir(c.id)}>Excluir</button>
+          </div>
         </div>
       ))}
     </div>

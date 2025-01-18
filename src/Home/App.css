@@ -66,6 +66,7 @@ h1 {
         font-size: 16px;
         padding-left: 10px;
         outline: none;
+        text-transform: uppercase;
     }
 
     & label {
@@ -84,6 +85,32 @@ h1 {
     gap: 40px;
     box-shadow: 10px 10px 5px 0px rgba(166, 11, 249, 0.501);
     color: white;
-
-
 }
+.delete{
+    display: flex ;
+    justify-content: center;
+    color: #000000;
+    box-shadow: 10px 10px 5px 0px rgba(166, 11, 249, 0.501);
+    width: 70%;
+    height: 30px;
+    background-color: rgb(255, 255, 255);
+    font-size: 70%;
+    border-radius: 10px;
+    padding-top: 2%;
+    text-transform: uppercase;
+    outline: none;
+    cursor: pointer;
+    
+}
+
+.delete:hover {
+    opacity: 0.5;
+    background-color: rgba(255, 0, 0, 0.89);
+    box-shadow: 10px 10px 5px 0px rgb(250, 250, 250);
+}
+
+.buton_delte{
+    display: flex;
+    justify-content: center;
+}
+
