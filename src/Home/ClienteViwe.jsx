@@ -36,7 +36,7 @@ export default function ClienteViwe() {
     // Limpar campos após salvar
     try {
       await insert(nome, rg, endereco, telefone, cep, email);
-      alert("Cliente salvo com sucesso");
+      alert(`Cliente salvo com sucesso, ${nome}`);
       limparcampo();
     } catch (error) {
       alert("Erro ao salvar cliente: " + error.message);
@@ -52,7 +52,7 @@ export default function ClienteViwe() {
 
   const excluir = async (id) => {
     await deleteById(id);
-    alert("cadastro excluido com sucesso");
+    alert(`cadastro excluido com sucesso`);
     pesquisar();
   };
 
