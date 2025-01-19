@@ -21,14 +21,12 @@ export default function ClienteViwe() {
     const email = inputEmail.current.value.trim("email");
 
     if (!nome || isNaN(rg) || !endereco || !telefone || !cep || !email) {
-      alert("Por favor, preencha todos os campos obrigatórios!");
+      alert("Por favor, preencha todos os campos obrigatórios! ");
       return;
     }
 
     // Validações
-    if (!nome || isNaN(rg) || !endereco || !telefone || !cep || !email) {
-      return;
-    }
+
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(email)) {
       alert("Por favor, insira um e-mail válido!");
@@ -39,7 +37,7 @@ export default function ClienteViwe() {
     try {
       await insert(nome, rg, endereco, telefone, cep, email);
       alert("Cliente salvo com sucesso");
-      limparcampo()
+      limparcampo();
     } catch (error) {
       alert("Erro ao salvar cliente: " + error.message);
     }
@@ -58,14 +56,14 @@ export default function ClienteViwe() {
     pesquisar();
   };
 
-  const limparcampo = () =>{
+  const limparcampo = () => {
     inputNome.current.value = "";
     inputRg.current.value = "";
     inputEndereco.current.value = "";
     inputTelefone.current.value = "";
     inputCep.current.value = "";
     inputEmail.current.value = "";
-  }
+  };
 
   return (
     <div className="container">
