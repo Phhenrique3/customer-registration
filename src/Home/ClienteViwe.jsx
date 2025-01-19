@@ -1,6 +1,6 @@
 import "./App.css";
 import { useState, useRef } from "react";
-import { findAll, insert, deleteById} from "./ClienteApi.js";
+import { findAll, insert, deleteById } from "./ClienteApi.js";
 
 export default function ClienteViwe() {
   const [clientes, setClientes] = useState([]);
@@ -13,12 +13,17 @@ export default function ClienteViwe() {
   const inputEmail = useRef();
 
   const salva = async () => {
-    const nome = inputNome.current.value.trim();
+    const nome = inputNome.current.value.trim("nome");
     const rg = parseInt(inputRg.current.value, 10);
-    const endereco = inputEndereco.current.value.trim();
-    const telefone = inputTelefone.current.value.trim();
-    const cep = inputCep.current.value.trim();
-    const email = inputEmail.current.value.trim();
+    const endereco = inputEndereco.current.value.trim("edereco");
+    const telefone = inputTelefone.current.value.trim("telefone");
+    const cep = inputCep.current.value.trim("cep");
+    const email = inputEmail.current.value.trim("email");
+
+    if (!nome || isNaN(rg) || !endereco || !telefone || !cep || !email) {
+      alert("Por favor, preencha todos os campos obrigatórios!");
+      return;
+    }
 
     // Validações
     if (!nome || isNaN(rg) || !endereco || !telefone || !cep || !email) {
@@ -29,14 +34,12 @@ export default function ClienteViwe() {
       alert("Por favor, insira um e-mail válido!");
       return;
     }
-    
-    alert("Cliente salvo com sucesso");
 
     // Limpar campos após salvar
     try {
       await insert(nome, rg, endereco, telefone, cep, email);
       alert("Cliente salvo com sucesso");
-      await pesquisar(); // Atualizar a lista de clientes após salvar
+      limparcampo()
     } catch (error) {
       alert("Erro ao salvar cliente: " + error.message);
     }
@@ -44,16 +47,24 @@ export default function ClienteViwe() {
   };
 
   const pesquisar = async () => {
-    console.log("Consultando os clientes");
+    alert("Cadastro sendo consultados......");
     const dados = await findAll();
     setClientes(dados);
   };
 
-  const excluir = async (id)=>{
-    console.log("excluindo com sucesso,",id)
-    await deleteById(id)
-    alert("cadastro excluido com sucesso")
-    pesquisar()
+  const excluir = async (id) => {
+    await deleteById(id);
+    alert("cadastro excluido com sucesso");
+    pesquisar();
+  };
+
+  const limparcampo = () =>{
+    inputNome.current.value = "";
+    inputRg.current.value = "";
+    inputEndereco.current.value = "";
+    inputTelefone.current.value = "";
+    inputCep.current.value = "";
+    inputEmail.current.value = "";
   }
 
   return (
@@ -108,7 +119,9 @@ export default function ClienteViwe() {
             </p>
           </div>
           <div className="buton_delte">
-          <button className="delete" onClick={() => excluir(c.id)}>Excluir</button>
+            <button className="delete" onClick={() => excluir(c.id)}>
+              Excluir
+            </button>
           </div>
         </div>
       ))}
