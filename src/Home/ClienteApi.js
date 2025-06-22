@@ -80,3 +80,28 @@ export async function deleteById(id) {
     throw new Error("falha ao tentar busca contato");
   }
 }
+
+export async function update(id, nome, rg, endereco, telefone, cep, email) {
+  console.log(id, nome, rg, endereco, telefone, cep, email)
+  const body = JSON.stringify({id, nome, endereco, telefone, cep, email, rg}); 
+
+  const init = {
+    method: "PUT",
+    headers: {
+      accept: "application/json",
+      Authorization: "Bearer 12119065",
+    },
+    body,
+  };
+  const httpResponse = await fetch(url + "/" + id, init);
+
+  if (httpResponse.ok) {
+    console.log("Sucesso ao alterar contato");
+    return await httpResponse.json();
+  } else {
+    const erro = await httpResponse.text();
+    console.log(httpResponse.status, erro);
+
+    throw new Error(erro);
+  }
+}
