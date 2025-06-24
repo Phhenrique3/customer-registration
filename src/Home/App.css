@@ -127,7 +127,7 @@ h1 {
     opacity: 0.9;
 }
 .edit:hover {
-    background-color: #e63946;
+    background-color: rgba(193, 249, 108, 0.685);
     color: white;
     box-shadow: 0 4px 15px rgba(255, 255, 255, 0.4);
     opacity: 0.9;

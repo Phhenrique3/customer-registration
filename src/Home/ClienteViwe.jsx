@@ -6,6 +6,7 @@ import { FaTrash, FaEdit } from "react-icons/fa";
 export default function ClienteViwe() {
   const [clientes, setClientes] = useState([]);
   const [editingClient, setEditingClient] = useState(null); // Novo estado para armazenar o cliente em edição
+  const formRef = useRef(null);
 
   const inputNome = useRef();
   const inputRg = useRef();
@@ -79,6 +80,7 @@ export default function ClienteViwe() {
     inputCep.current.value = client.cep;
     inputEmail.current.value = client.email;
     setEditingClient(client);
+    formRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   const limparcampo = () => {
@@ -93,23 +95,30 @@ export default function ClienteViwe() {
 
   return (
     <div className="container">
-      <div className="formulario">
-        <h1>Realizar seu cadastro aqui </h1>
+      <div className="formulario" ref={formRef}>
+        <h1>Realize seu cadastro aqui </h1>
         <input placeholder="Nome" name="nome" type="text" ref={inputNome} />
         <input
           placeholder="RG (apenas números)"
           name="rg"
           type="text"
-          maxLength="7"
+          maxLength="11"
           ref={inputRg}
         />
         <input
           placeholder="Telefone"
           name="telefone"
           type="text"
+          maxLength="11"
           ref={inputTelefone}
         />
-        <input placeholder="CEP" name="cep" type="text" ref={inputCep} />
+        <input
+          placeholder="CEP"
+          name="cep"
+          type="text"
+          maxLength="8"
+          ref={inputCep}
+        />
         <input placeholder="E-mail" name="text" type="email" ref={inputEmail} />
         <input
           placeholder="Endereço"
@@ -129,9 +138,6 @@ export default function ClienteViwe() {
       {clientes.map((c, index) => (
         <div className="card" key={index}>
           <div>
-            <p>
-              id: <span>{c.id}</span>
-            </p>
             <p>
               Nome: <span>{c.nome}</span>
             </p>

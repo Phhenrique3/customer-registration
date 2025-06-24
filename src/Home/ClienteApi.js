@@ -82,17 +82,20 @@ export async function deleteById(id) {
 }
 
 export async function update(id, nome, rg, endereco, telefone, cep, email) {
-  console.log(id, nome, rg, endereco, telefone, cep, email)
-  const body = JSON.stringify({id, nome, endereco, telefone, cep, email, rg}); 
+  console.log(id, nome, rg, endereco, telefone, cep, email);
+
+  const body = JSON.stringify({ nome, endereco, telefone, cep, email, rg });
 
   const init = {
     method: "PUT",
     headers: {
+      "Content-Type": "application/json", // <- ISSO AQUI FALTAVA
       accept: "application/json",
       Authorization: "Bearer 12119065",
     },
     body,
   };
+
   const httpResponse = await fetch(url + "/" + id, init);
 
   if (httpResponse.ok) {
@@ -101,7 +104,6 @@ export async function update(id, nome, rg, endereco, telefone, cep, email) {
   } else {
     const erro = await httpResponse.text();
     console.log(httpResponse.status, erro);
-
     throw new Error(erro);
   }
 }
